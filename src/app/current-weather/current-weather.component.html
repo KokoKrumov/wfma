@@ -1,3 +1,48 @@
-<p>
-  current-weather works!
-</p>
+<div class="search_form">
+    <form>
+        <div class="form-group">
+            <label for="location">Email address</label>
+
+            <input [(ngModel)]="city" name="city" #name='ngModel' required type="text" class="form-control" id="location" aria-describedby="location"
+                   placeholder="Enter location">
+
+<!--            <input list="browsers" name="browser">-->
+<!--            <datalist id="browsers">-->
+<!--                <option value="Internet Explorer">-->
+<!--                <option value="Firefox">-->
+<!--                <option value="Chrome">-->
+<!--                <option value="Opera">-->
+<!--                <option value="Safari">-->
+<!--            </datalist>-->
+
+            <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                 class="alert alert-danger">
+                <div *ngIf="name.errors.required">
+                    Name is required.
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
+    </form>
+</div>
+
+<div>
+    <h1>
+        City: {{weather.location.name}}
+        <span>{{weather.current.temp_c}}°C</span>, {{weather.location.region}}
+    </h1>
+    <p>Feels like {{weather.current.feelslike_c}}°C</p>
+    <img src="{{weather.current.condition.icon}}" alt="">
+    <p>{{weather.current.condition.text}}</p>
+    <p>Humidity: {{weather.current.humidity}}</p>
+    <p>Wind: {{weather.current.wind_kph}}k/h</p>
+    <p></p>
+
+</div>
+
+<div>
+    <h2>Your History</h2>
+    <ul>
+
+    </ul>
+</div>
