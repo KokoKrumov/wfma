@@ -1,0 +1,27 @@
+.title {
+  margin-top: 50px;
+}
+
+.nav-pills {
+  margin-top: 50px;
+  li {
+    margin-right: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover,
+    &.active {
+      background-color: blue;
+      color: white;
+    }
+  }
+}
+
+.detail-info {
+  margin-top: 50px;
+}
+
+.show {
+  display: block;
+}

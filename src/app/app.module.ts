@@ -10,6 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {WeatherService} from './weather.service';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { WeatherDetailComponent } from './weather-detail/weather-detail.component';
 
 
 const appRoutes = [
@@ -26,7 +28,9 @@ const appRoutes = [
         AppComponent,
         CurrentWeatherComponent,
         HeaderComponent,
-        FooterComponent
+        FooterComponent,
+        SearchBarComponent,
+        WeatherDetailComponent
     ],
     imports: [
         BrowserModule,

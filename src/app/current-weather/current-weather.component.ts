@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {WeatherService} from '../weather.service';
-import {Weather} from '../weather';
 
 
 @Component({
@@ -9,37 +8,42 @@ import {Weather} from '../weather';
     styleUrls: ['./current-weather.component.scss']
 })
 export class CurrentWeatherComponent implements OnInit {
-
     city: string;
+    weather: any;
+    days: number;
+    activeBtn = false;
+    calendarDays: [];
 
-    weather: any = {
-        location: {
-            name: 'Sofia'
-        },
-        current: {
-            condition: {
-                icon: 'none',
-                text: 'none'
-            }
+
+    constructor(public weatherService: WeatherService) {
+        if (this.city === undefined) {
+            this.city = 'Sofia';
+            this.days = 0;
         }
-    };
+    }
 
-    constructor(private weatherService: WeatherService) {
+    showWeather(city, days) {
+        this.weatherService.getWeather(city, days).subscribe((response) =>
+            this.weather = response
+        );
     }
 
     ngOnInit() {
-        this.weatherService.getWeather(this.weather.location.name).subscribe((response) =>
-            // console.log(response)
-            this.weather = response
-        );
+        this.showWeather(this.city, this.days);
     }
 
-    submit() {
 
-        this.weatherService.getWeather(this.city).subscribe((response) =>
-            this.weather = response
-        );
-        this.weatherService.getWeather(this.city).subscribe((response) =>
+    setDays(city, days) {
+        this.submit(city, days);
+    }
+
+    submit(city, days) {
+        this.calendarDays = this.weather.forecast;
+        console.log(this.calendarDays);
+        this.showWeather(city, days);
+        this.weather = city;
+
+        this.weatherService.getWeather(city, days).subscribe((response) =>
             console.log(response)
         );
     }

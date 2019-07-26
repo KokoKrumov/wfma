@@ -1,48 +1,71 @@
 <div class="search_form">
     <form>
         <div class="form-group">
-            <label for="location">Email address</label>
-
-            <input [(ngModel)]="city" name="city" #name='ngModel' required type="text" class="form-control" id="location" aria-describedby="location"
-                   placeholder="Enter location">
-
-<!--            <input list="browsers" name="browser">-->
-<!--            <datalist id="browsers">-->
-<!--                <option value="Internet Explorer">-->
-<!--                <option value="Firefox">-->
-<!--                <option value="Chrome">-->
-<!--                <option value="Opera">-->
-<!--                <option value="Safari">-->
-<!--            </datalist>-->
-
-            <div *ngIf="name.invalid && (name.dirty || name.touched)"
-                 class="alert alert-danger">
-                <div *ngIf="name.errors.required">
-                    Name is required.
+            <div class="row">
+                <div class="col-9">
+                    <input [(ngModel)]="city" name="city" #name='ngModel' required type="text" class="form-control"
+                           id="location" aria-describedby="location"
+                           placeholder="Enter location">
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary w-100" (click)="submit(city, 0)">Submit</button>
+                </div>
+                <div class="col-12">
+                    <div *ngIf="name.invalid && (name.dirty || name.touched)"
+                         class="alert alert-danger">
+                        <div *ngIf="name.errors.required">
+                            Name is required.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary" (click)="submit()">Submit</button>
     </form>
 </div>
 
-<div>
-    <h1>
-        City: {{weather.location.name}}
-        <span>{{weather.current.temp_c}}°C</span>, {{weather.location.region}}
-    </h1>
-    <p>Feels like {{weather.current.feelslike_c}}°C</p>
-    <img src="{{weather.current.condition.icon}}" alt="">
-    <p>{{weather.current.condition.text}}</p>
-    <p>Humidity: {{weather.current.humidity}}</p>
-    <p>Wind: {{weather.current.wind_kph}}k/h</p>
-    <p></p>
-
-</div>
 
 <div>
-    <h2>Your History</h2>
-    <ul>
+<!--   <app-weather-detail [city]="weather"></app-weather-detail>-->
+    <div class="row">
+        <div class="col-12">
+            <h1 class="title">
+                City: {{weather.location.name}}, {{weather.location.region}}
+            </h1>
 
-    </ul>
+        </div>
+
+        <div class="col-12">
+            <ul class="nav nav-pills">
+                <li (click)="setDays(city, 0)"
+                [class.active]="weather.forecast.forecastday.length === 1">
+                    current
+                </li>
+                <li (click)="setDays(city, 5)"
+                [class.active]="weather.forecast.forecastday.length === 5">
+                    5 days
+                </li>
+                <li (click)="setDays(city, 10)"
+                [class.active]="weather.forecast.forecastday.length > 5">
+                    10 days
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-12">
+            <div class="detail-info">
+                <ul class="row">
+                    <li class="col-auto" *ngFor="let day of weather.forecast.forecastday">
+                        <h3>Date {{day.date}}</h3>
+                        <h5>Temperature {{day.avgtemp_c}}°C</h5>
+                        <p>Feels like {{weather.current.feelslike_c}}°C</p>
+                        <img src="{{weather.current.condition.icon}}" alt="">
+                        <p>{{weather.current.condition.text}}</p>
+                        <p>Humidity: {{weather.current.humidity}}</p>
+                        <p>Wind: {{weather.current.wind_kph}}k/h</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
 </div>

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-12">
+        <h1 class="title">
+            City: {{city.location.name}}, {{city.location.region}}
+        </h1>
+
+    </div>
+
+    <div class="col-12">
+        <ul class="nav nav-pills">
+            <li (click)="submit(city, 0)">
+                current
+            </li>
+            <li (click)="submit(city, 4)">
+                5 days
+            </li>
+            <li (click)="submit(city, 9)">
+                10 days
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-12">
+        <div class="detail-info">
+            <p>Feels like {{city.current.feelslike_c}}°C</p>
+            <img src="{{city.current.condition.icon}}" alt="">
+            <p>{{city.current.condition.text}}</p>
+            <p>Humidity: {{city.current.humidity}}</p>
+            <p>Wind: {{city.current.wind_kph}}k/h</p>
+        </div>
+    </div>
+
+</div>
