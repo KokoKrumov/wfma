@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {Observable, of} from 'rxjs';
-import {WeatherData} from './weather-data';
+import {CityData, WeatherData} from './weather-data';
 
 
 @Injectable({
@@ -29,12 +29,12 @@ export class WeatherService {
     }
 
     /* GET heroes whose name contains search term */
-    searchCity(term: string): Observable<WeatherData[]> {
+    searchCity(term: string): Observable<CityData[]> {
         if (!term.trim()) {
             // if not search term, return empty hero array.
             return of([]);
         }
-        return this.http.get<WeatherData[]>(`${this.url}search.json?key=${this.apiKey}&q=${term}&days=0`).pipe(
+        return this.http.get<CityData[]>(`${this.url}search.json?key=${this.apiKey}&q=${term}&days=0`).pipe(
             // tap(_ => this.log(`found heroes matching "${term}"`)),
             // catchError(this.handleError<Hero[]>('searchHeroes', []))
         );

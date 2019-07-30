@@ -7,16 +7,10 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class WeatherDetailComponent implements OnInit {
 
-    public days: number;
-
     constructor() {
     }
 
     @Input() city;
-
-    setDays(days: number) {
-        this.days = days;
-    }
 
     ngOnInit() {
     }

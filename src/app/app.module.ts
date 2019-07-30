@@ -12,11 +12,13 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { WeatherDetailComponent } from './weather-detail/weather-detail.component';
+import { TnwaComponent } from './tnwa/tnwa.component';
+import {removeChar} from './removeChar';
 
 
 const appRoutes = [
     {
-        path: '', component: CurrentWeatherComponent
+        path: '', component: TnwaComponent
     },
     {
         path: 'home', component: CurrentWeatherComponent
@@ -30,7 +32,9 @@ const appRoutes = [
         HeaderComponent,
         FooterComponent,
         SearchBarComponent,
-        WeatherDetailComponent
+        WeatherDetailComponent,
+        removeChar,
+        TnwaComponent
     ],
     imports: [
         BrowserModule,

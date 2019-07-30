@@ -3,22 +3,23 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-9">
-                    <input #searchBox [(ngModel)]="city" name="city" type="text" class="form-control"
+                    <input #searchBox [(ngModel)]="cityName" name="city" type="text" class="form-control"
                            id="search-box" (input)="search(searchBox.value)" aria-describedby="location"
                            placeholder="Enter location" list="cites">
                     <datalist id="cites">
                         <option *ngFor="let city of cities$ | async" value="{{city.name}}">
                     </datalist>
-<!--                    <ul class="search-result">-->
-<!--                        <li *ngFor="let city of cities$ | async">-->
-<!--                            <a routerLink="/detail/{{city.id}}">-->
-<!--                                {{city.name}}-->
-<!--                            </a>-->
-<!--                        </li>-->
-<!--                    </ul>-->
+                    <!--                    <ul class="search-result">-->
+                    <!--                        <li *ngFor="let city of cities$ | async">-->
+                    <!--                            <a routerLink="/detail/{{city.id}}">-->
+                    <!--                                {{city.name}}-->
+                    <!--                            </a>-->
+                    <!--                        </li>-->
+                    <!--                    </ul>-->
                 </div>
                 <div class="col-3">
-                    <button type="submit" class="btn btn-primary w-100" (click)="submit(city, 0, type)">Submit</button>
+                    <button type="submit" class="btn btn-primary w-100" (click)="submit(cityName, 0, type)">Submit
+                    </button>
                 </div>
                 <!--                <div class="col-12">-->
                 <!--                    <div *ngIf="name.invalid && (name.dirty || name.touched)"-->
@@ -39,25 +40,25 @@
     <div class="row">
         <div class="col-12">
             <h1 class="title">
-                City: {{weather.location.name}}
+                City: {{cityName}}
             </h1>
             <h2>
-                Region: {{weather.location.region}}
+                Region: {{cityRegion}}
             </h2>
 
         </div>
 
         <div class="col-12">
             <ul class="nav nav-pills">
-                <li (click)="submit(city, 0, type)"
+                <li (click)="submit(cityName, 0, type)"
                     [class.active]="activeBtn === 0">
                     current
                 </li>
-                <li (click)="submit(city, 5, type)"
+                <li (click)="submit(cityName, 5, type)"
                     [class.active]="activeBtn === 5">
                     5 days
                 </li>
-                <li (click)="submit(city, 10, type)"
+                <li (click)="submit(cityName, 10, type)"
                     [class.active]="activeBtn > 5">
                     10 days
                 </li>
@@ -67,13 +68,13 @@
         <div class="col-12">
             <div class="detail-info">
                 <div *ngIf="days === 0; else daysList">
-                    <h3>Date {{weather.location.name}}</h3>
-                    <img src="{{weather.current.condition.icon}}" alt="">
-                    <h5>Temperature {{weather.current.temp_c}}°C</h5>
+                    <h3>Date {{cityName}}</h3>
+                    <img src="{{weatherIcon}}" alt="">
+                    <!--                    <h5>Temperature {{weather.current.temp_c}}°C</h5>-->
                 </div>
                 <ng-template #daysList>
-                    <ul class="row">
-                        <li class="col-auto" *ngFor="let day of this.weather.forecast.forecastday">
+                    <ul class="row" *ngIf="this.weather.forecast.forecastday">
+                        <li  class="col-auto" *ngFor="let day of calendarDays; trackBy: trackDays">
                             <h3>Date {{day.date}}</h3>
                             <h5>Temperature {{day.day.avgtemp_c}}°C</h5>
                             <!--                            <p>Feels like {{weather.current.feelslike_c}}°C</p>-->

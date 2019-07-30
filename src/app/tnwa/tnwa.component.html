@@ -1,0 +1,83 @@
+<div class="search_form">
+    <form #f="ngForm" (ngSubmit)="submit(f)">
+        <div class="form-group form-row">
+            <div class="col-12">
+                <label for="search-box">Search City</label>
+            </div>
+            <div class="col-9">
+                <input ngModel
+                       name="searchCity"
+                       #searchCity="ngModel"
+                       (change)="log(searchCity)"
+                       type="text" class="form-control"
+                       id="search-box"
+                       required
+                       pattern="Sofia"
+                       aria-describedby="location"
+                       placeholder="Enter 'Sofia'">
+            </div>
+            <!--            SUBMIT BUTTON-->
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary w-100" [disabled]="!searchCity.valid">
+                    Submit
+                </button>
+            </div>
+            <!--/            SUBMIT BUTTON-->
+
+            <!--            ALERT MESSAGE-->
+            <div class="col-12" *ngIf="searchCity.touched && !searchCity.valid">
+                <div class="alert alert-danger">
+                    Location is required
+                    <div *ngIf="searchCity.control.errors.pattern">
+                        Set Location to {{searchCity.control.errors.pattern.requiredPattern |removeChar}}
+                    </div>
+                </div>
+            </div>
+            <!--/            ALERT MESSAGE-->
+
+            <!--            CHECKBOX-->
+            <div class="col-12 mt-4">
+                <div class="custom-control custom-checkbox">
+                    <input
+
+                            ngModel
+                            name="customCheck1"
+                            type="checkbox"
+                            class="custom-control-input"
+                            id="customCheck1">
+                    <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>
+                </div>
+            </div>
+            <!--/            CHECKBOX-->
+
+            <!--            RADIOBUTTONS-->
+            <div class="col-12 mt-4">
+                <div class="custom-control custom-radio">
+                    <input ngModel
+                           value="1"
+                           type="radio"
+                           id="customRadio1"
+                           name="customRadio"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio1">Toggle 1</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input ngModel
+                           value="2"
+                           type="radio"
+                           id="customRadio2"
+                           name="customRadio"
+                           class="custom-control-input">
+                    <label class="custom-control-label" for="customRadio2">Or toggle 2</label>
+                </div>
+            </div>
+            <!--/            RADIOBUTTONS-->
+
+            <div class="mt-5">
+                <p>
+                    {{f.value | json}}
+                </p>
+            </div>
+        </div>
+    </form>
+</div>
