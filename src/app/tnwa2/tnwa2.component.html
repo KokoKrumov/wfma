@@ -1,0 +1,74 @@
+<div class="search_form">
+    <form [formGroup]="form">
+        <div class="form-group form-row">
+            <div class="col-12">
+                <label for="search-box">Search City</label>
+            </div>
+            <div class="col-9">
+                <input formControlName="cityName"
+                       type="text" class="form-control"
+                       id="search-box"
+                       aria-describedby="location"
+                       placeholder="Enter 'Sofia'">
+            </div>
+            <!--            SUBMIT BUTTON-->
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary w-100">
+                    Submit
+                </button>
+            </div>
+            <!--/            SUBMIT BUTTON-->
+            <div class="col-12" *ngIf="cityName.pending">
+                loading ....
+            </div>
+            <!--            ALERT MESSAGE-->
+            <div class="col-12" *ngIf="cityName.touched && cityName.invalid">
+                <div class="alert alert-danger" *ngIf="cityName.errors.required">
+                    City is required
+                </div>
+                <div class="alert alert-danger" *ngIf="cityName.errors.minlength">
+                    City with min {{cityName.errors.minlength.requiredLength}} letters
+                </div>
+                <div class="alert alert-danger" *ngIf="cityName.errors.cannotContainNumbers">
+                    Cannot contain numbers
+                </div>
+                <div class="alert alert-danger" *ngIf="cityName.errors.shouldBeCity">
+                    Cannot contain Sofia
+                </div>
+            </div>
+            <!--/            ALERT MESSAGE-->
+
+            <!--            CHECKBOX-->
+            <!--      <div class="col-12 mt-4">-->
+            <!--        <div class="custom-control custom-checkbox">-->
+            <!--          <input type="checkbox"-->
+            <!--                  class="custom-control-input"-->
+            <!--                  id="customCheck1">-->
+            <!--          <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>-->
+            <!--        </div>-->
+            <!--      </div>-->
+            <!--/            CHECKBOX-->
+
+            <!--            RADIOBUTTONS-->
+            <!--      <div class="col-12 mt-4">-->
+            <!--        <div class="custom-control custom-radio">-->
+            <!--          <input id="customRadio1"-->
+            <!--                 class="custom-control-input">-->
+            <!--          <label class="custom-control-label" for="customRadio1">Toggle 1</label>-->
+            <!--        </div>-->
+            <!--        <div class="custom-control custom-radio">-->
+            <!--          <input id="customRadio2"-->
+            <!--                 class="custom-control-input">-->
+            <!--          <label class="custom-control-label" for="customRadio2">Or toggle 2</label>-->
+            <!--        </div>-->
+            <!--      </div>-->
+            <!--/            RADIOBUTTONS-->
+
+            <div class="mt-5">
+                <p>
+                    <!--          {{f.value | json}}-->
+                </p>
+            </div>
+        </div>
+    </form>
+</div>

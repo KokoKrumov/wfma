@@ -9,16 +9,17 @@ import {FooterComponent} from './footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {WeatherService} from './weather.service';
 import {RouterModule} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { WeatherDetailComponent } from './weather-detail/weather-detail.component';
 import { TnwaComponent } from './tnwa/tnwa.component';
 import {removeChar} from './removeChar';
+import { Tnwa2Component } from './tnwa2/tnwa2.component';
 
 
 const appRoutes = [
     {
-        path: '', component: TnwaComponent
+        path: '', component: Tnwa2Component
     },
     {
         path: 'home', component: CurrentWeatherComponent
@@ -34,7 +35,8 @@ const appRoutes = [
         SearchBarComponent,
         WeatherDetailComponent,
         removeChar,
-        TnwaComponent
+        TnwaComponent,
+        Tnwa2Component
     ],
     imports: [
         BrowserModule,
@@ -42,7 +44,8 @@ const appRoutes = [
         AppRoutingModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-        FormsModule
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         WeatherService
