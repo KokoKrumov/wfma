@@ -1,5 +1,8 @@
 <div class="search_form">
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="submit(cityname)">
+        <div *ngIf="form.errors" class="alert alert-danger">
+            The name is Levski
+        </div>
         <div class="form-group form-row">
             <div class="col-12">
                 <label for="search-box">Search City</label>
@@ -8,6 +11,7 @@
                 <input formControlName="cityName"
                        type="text" class="form-control"
                        id="search-box"
+                       #cityname
                        aria-describedby="location"
                        placeholder="Enter 'Sofia'">
             </div>
@@ -36,6 +40,11 @@
                     Cannot contain Sofia
                 </div>
             </div>
+
+            <div class="col-12" *ngIf="cityName.touched && cityName.valid">
+                this name is OK
+            </div>
+
             <!--/            ALERT MESSAGE-->
 
             <!--            CHECKBOX-->
@@ -70,5 +79,7 @@
                 </p>
             </div>
         </div>
+
     </form>
+    <app-city-history-list [cityList]="form.get('cityList').controls" (change)="removeCity($event)"></app-city-history-list>
 </div>

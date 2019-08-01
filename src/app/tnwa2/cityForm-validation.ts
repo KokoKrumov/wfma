@@ -26,7 +26,7 @@ export class CityFormValidation {
                 } else {
                     resolve(null);
                 }
-            }, 4000);
+            }, 1000);
         });
     }
 }

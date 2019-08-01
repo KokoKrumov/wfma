@@ -15,6 +15,7 @@ import { WeatherDetailComponent } from './weather-detail/weather-detail.componen
 import { TnwaComponent } from './tnwa/tnwa.component';
 import {removeChar} from './removeChar';
 import { Tnwa2Component } from './tnwa2/tnwa2.component';
+import { CityHistoryListComponent } from './city-history-list/city-history-list.component';
 
 
 const appRoutes = [
@@ -36,7 +37,8 @@ const appRoutes = [
         WeatherDetailComponent,
         removeChar,
         TnwaComponent,
-        Tnwa2Component
+        Tnwa2Component,
+        CityHistoryListComponent
     ],
     imports: [
         BrowserModule,
