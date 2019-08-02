@@ -16,8 +16,7 @@ export class CityHistoryListComponent implements OnInit {
     ngOnInit() {
     }
 
-
-    removeCity(city) {
+    loadCityFromList(city) {
         this.change.emit(city);
     }
 }

@@ -1,9 +1,7 @@
 <div class="search_form">
     <form [formGroup]="form" (ngSubmit)="submit(cityname)">
-        <div *ngIf="form.errors" class="alert alert-danger">
-            The name is Levski
-        </div>
         <div class="form-group form-row">
+            <!--            LABEL AND INPUT-->
             <div class="col-12">
                 <label for="search-box">Search City</label>
             </div>
@@ -15,9 +13,10 @@
                        aria-describedby="location"
                        placeholder="Enter 'Sofia'">
             </div>
+            <!--/            LABEL AND INPUT-->
             <!--            SUBMIT BUTTON-->
             <div class="col-3">
-                <button type="submit" class="btn btn-primary w-100">
+                <button type="submit" class="btn btn-primary w-100" [disabled]="!cityName.valid">
                     Submit
                 </button>
             </div>
@@ -41,9 +40,9 @@
                 </div>
             </div>
 
-            <div class="col-12" *ngIf="cityName.touched && cityName.valid">
-                this name is OK
-            </div>
+            <!--            <div class="col-12" *ngIf="cityName.touched && cityName.valid">-->
+            <!--                this name is OK-->
+            <!--            </div>-->
 
             <!--/            ALERT MESSAGE-->
 
@@ -81,5 +80,31 @@
         </div>
 
     </form>
-    <app-city-history-list [cityList]="form.get('cityList').controls" (change)="removeCity($event)"></app-city-history-list>
+    <div class="row justify-content-between">
+        <div class="col-7">
+            <div class="forecast-info" >
+<!--                <h1>-->
+<!--                    City:{{cityForecastObject.location.name}}-->
+<!--                </h1>-->
+                <img src="" alt="">
+                <p>
+                    Temp:
+                </p>
+                <p>
+                    Feels like:
+                </p>
+                <p>
+                    Humidity:
+                </p>
+                <p>
+                    Wind speed:
+                </p>
+            </div>
+        </div>
+        <div class="col-3">
+            <app-city-history-list [cityList]="formCityList.controls"
+                                   (change)="loadCityFromList($event)">
+            </app-city-history-list>
+        </div>
+    </div>
 </div>

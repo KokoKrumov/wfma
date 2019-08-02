@@ -1,6 +1,10 @@
 <ul class="list-group">
-    <li *ngFor="let city of cityList"
-        (click)="removeCity(city)">
-        {{city}}
+
+    <li *ngFor="let city of cityList">
+        <p class="d-flex justify-content-between">
+            <span (click)="loadCityFromList(city)">
+                {{city.value}}
+            </span>
+        </p>
     </li>
 </ul>
