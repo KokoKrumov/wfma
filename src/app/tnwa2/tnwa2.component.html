@@ -1,110 +1,150 @@
 <div class="search_form">
-    <form [formGroup]="form" (ngSubmit)="submit(cityname)">
-        <div class="form-group form-row">
-            <!--            LABEL AND INPUT-->
-            <div class="col-12">
-                <label for="search-box">Search City</label>
-            </div>
-            <div class="col-9">
-                <input formControlName="cityName"
-                       type="text" class="form-control"
-                       id="search-box"
-                       #cityname
-                       aria-describedby="location"
-                       placeholder="Enter 'Sofia'">
-            </div>
-            <!--/            LABEL AND INPUT-->
-            <!--            SUBMIT BUTTON-->
-            <div class="col-3">
-                <button type="submit" class="btn btn-primary w-100" [disabled]="!cityName.valid">
-                    Submit
-                </button>
-            </div>
-            <!--/            SUBMIT BUTTON-->
-            <div class="col-12" *ngIf="cityName.pending">
-                loading ....
-            </div>
-            <!--            ALERT MESSAGE-->
-            <div class="col-12" *ngIf="cityName.touched && cityName.invalid">
-                <div class="alert alert-danger" *ngIf="cityName.errors.required">
-                    City is required
-                </div>
-                <div class="alert alert-danger" *ngIf="cityName.errors.minlength">
-                    City with min {{cityName.errors.minlength.requiredLength}} letters
-                </div>
-                <div class="alert alert-danger" *ngIf="cityName.errors.cannotContainNumbers">
-                    Cannot contain numbers
-                </div>
-                <div class="alert alert-danger" *ngIf="cityName.errors.shouldBeCity">
-                    Cannot contain Sofia
-                </div>
-            </div>
-
-            <!--            <div class="col-12" *ngIf="cityName.touched && cityName.valid">-->
-            <!--                this name is OK-->
-            <!--            </div>-->
-
-            <!--/            ALERT MESSAGE-->
-
-            <!--            CHECKBOX-->
-            <!--      <div class="col-12 mt-4">-->
-            <!--        <div class="custom-control custom-checkbox">-->
-            <!--          <input type="checkbox"-->
-            <!--                  class="custom-control-input"-->
-            <!--                  id="customCheck1">-->
-            <!--          <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label>-->
-            <!--        </div>-->
-            <!--      </div>-->
-            <!--/            CHECKBOX-->
-
-            <!--            RADIOBUTTONS-->
-            <!--      <div class="col-12 mt-4">-->
-            <!--        <div class="custom-control custom-radio">-->
-            <!--          <input id="customRadio1"-->
-            <!--                 class="custom-control-input">-->
-            <!--          <label class="custom-control-label" for="customRadio1">Toggle 1</label>-->
-            <!--        </div>-->
-            <!--        <div class="custom-control custom-radio">-->
-            <!--          <input id="customRadio2"-->
-            <!--                 class="custom-control-input">-->
-            <!--          <label class="custom-control-label" for="customRadio2">Or toggle 2</label>-->
-            <!--        </div>-->
-            <!--      </div>-->
-            <!--/            RADIOBUTTONS-->
-
-            <div class="mt-5">
-                <p>
-                    <!--          {{f.value | json}}-->
-                </p>
-            </div>
+  <form [formGroup]="form" (ngSubmit)="submit(cityname, setDays)">
+    <div class="form-group form-row">
+      <!--            LABEL AND INPUT-->
+      <div class="col-12">
+        <label for="search-box">Search City</label>
+      </div>
+      <div class="col-9">
+        <input formControlName="cityName"
+               type="text" class="form-control"
+               id="search-box"
+               #cityname
+               aria-describedby="location"
+               placeholder="Enter 'Sofia'">
+        <!--        <ul id="cities">-->
+        <!--          <li *ngFor="let city of cities$ | async" value="{{city.name}}">-->
+        <!--        </ul>-->
+      </div>
+      <!--/            LABEL AND INPUT-->
+      <!--            SUBMIT BUTTON-->
+      <div class="col-3">
+        <button type="submit" class="btn btn-primary w-100" [disabled]="!cityName.valid">
+          Submit
+        </button>
+      </div>
+      <!--/            SUBMIT BUTTON-->
+      <div class="col-12" *ngIf="cityName.pending">
+        loading ....
+      </div>
+      <!--            ALERT MESSAGE-->
+      <div class="col-12" *ngIf="cityName.touched && cityName.invalid">
+        <div class="alert alert-danger" *ngIf="cityName.errors.required">
+          City is required
         </div>
+        <div class="alert alert-danger" *ngIf="cityName.errors.minlength">
+          City with min {{cityName.errors.minlength.requiredLength}} letters
+        </div>
+        <div class="alert alert-danger" *ngIf="cityName.errors.cannotContainNumbers">
+          Cannot contain numbers
+        </div>
+        <div class="alert alert-danger" *ngIf="cityName.errors.shouldBeCity">
+          Cannot contain Sofia
+        </div>
+      </div>
 
-    </form>
-    <div class="row justify-content-between">
-        <div class="col-7">
-            <div class="forecast-info" >
-<!--                <h1>-->
-<!--                    City:{{cityForecastObject.location.name}}-->
-<!--                </h1>-->
-                <img src="" alt="">
-                <p>
-                    Temp:
-                </p>
-                <p>
-                    Feels like:
-                </p>
-                <p>
-                    Humidity:
-                </p>
-                <p>
-                    Wind speed:
-                </p>
-            </div>
-        </div>
-        <div class="col-3">
-            <app-city-history-list [cityList]="formCityList.controls"
-                                   (change)="loadCityFromList($event)">
-            </app-city-history-list>
-        </div>
+      <div class="mt-5">
+        <p>
+          <!--          {{f.value | json}}-->
+        </p>
+      </div>
     </div>
+
+  </form>
+  <div class="row justify-content-between">
+    <div class="col-7">
+
+      <div class="forecast-info" *ngIf="cityForecastObject">
+        <div>
+          <button [class.active]="activeBtn == 'f'" (click)="changeTemp('f')">°F</button>
+          <button [class.active]="activeBtn == 'c'" (click)="changeTemp('c')">°C</button>
+        </div>
+        <div>
+          <button (click)="nexDays(locationName,'1')">today</button>
+          <button (click)="nexDays(locationName,'2')">next day</button>
+          <button (click)="nexDays(locationName,'5')">5 days</button>
+          <button (click)="nexDays(locationName,'10')">10 days</button>
+        </div>
+
+        <h1>
+          City:{{locationName}}
+        </h1>
+
+        <div *ngIf="arrDayLength === 1; else daysList1">
+          <p>
+            {{date}}
+          </p>
+          <img src="{{imgSrc}}" alt="">
+          <p>
+            Temp: {{temp}}
+          </p>
+          <p>
+            Temp feels like: {{tempFeels}}
+          </p>
+          <p>
+            Humidity: {{humidity}}
+          </p>
+          <p>
+            Wind speed:{{windSpeed}} km/h
+          </p>
+        </div>
+       <ng-template #daysList1>
+         <div *ngIf="arrDayLength === 2; else daysList2">
+           <p>
+             {{date}}
+           </p>
+           <img src="{{imgSrc}}" alt="">
+           <p>
+             Avg Temp: {{avgTemp}}
+           </p>
+           <p>
+             Max Temp: {{maxTemp}}
+           </p>
+           <p>
+             Min Temp: {{minTemp}}
+           </p>
+           <p>
+             Temp feels like: {{tempFeels}}
+           </p>
+           <p>
+             Humidity: {{humidity}}
+           </p>
+           <p>
+             Wind speed:{{windSpeed}} km/h
+           </p>
+         </div>
+         <ng-template #daysList2>
+           <ul class="row">
+             <li class="col-auto" *ngFor="let day of arrDays; trackBy trackDays">
+               <p>
+                 {{day.date}}
+               </p>
+               <img src="{{day.day.condition.icon}}" alt="">
+               <p>
+                 Avg Temp: {{day.day.avgtemp_c}}
+               </p>
+               <p>
+                 Max Temp: {{day.day.maxtemp_c}}
+               </p>
+               <p>
+                 Min Temp: {{day.day.mintemp_c}}
+               </p>
+               <p>
+                 Humidity: {{day.day.avghumidity}}
+               </p>
+               <p>
+                 Wind speed:{{day.day.maxwind_kph}} km/h
+               </p>
+             </li>
+           </ul>
+         </ng-template>
+       </ng-template>
+      </div>
+    </div>
+    <div class="col-3">
+      <app-city-history-list [cityList]="formCityList.controls"
+                             (change)="loadCityFromList($event)">
+      </app-city-history-list>
+    </div>
+  </div>
 </div>
